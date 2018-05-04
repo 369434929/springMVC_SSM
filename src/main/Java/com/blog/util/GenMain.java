@@ -1,4 +1,4 @@
-package cloudoer.blog.util;
+package com.blog.util;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
