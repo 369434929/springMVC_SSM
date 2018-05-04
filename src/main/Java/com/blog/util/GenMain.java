@@ -23,6 +23,7 @@ public class GenMain {
         boolean overwrite = true;
         //如果这里出现空指针，直接写绝对路径即可。
         String genCfg = "/mbg.xml";
+        System.out.println(" ");
         File configFile = new File(GenMain.class.getResource(genCfg).getFile());
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = null;
