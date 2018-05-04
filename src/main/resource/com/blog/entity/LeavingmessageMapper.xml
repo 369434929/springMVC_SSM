@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapping.LeavingmessageMapper">
+  <resultMap id="BaseResultMap" type="com.blog.entity.Leavingmessage">
+    <id column="leaving_id" jdbcType="VARCHAR" property="leavingId" />
+    <result column="category_type" jdbcType="VARCHAR" property="categoryType" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="leaving_email" jdbcType="VARCHAR" property="leavingEmail" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.entity.LeavingmessageWithBLOBs">
+    <result column="add_time" jdbcType="LONGVARCHAR" property="addTime" />
+    <result column="leaving_content" jdbcType="LONGVARCHAR" property="leavingContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    leaving_id, category_type, username, user_uuid, avatar, likes, leaving_email
+  </sql>
+  <sql id="Blob_Column_List">
+    add_time, leaving_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_leavingmessage
+    where leaving_id = #{leavingId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_leavingmessage
+    where leaving_id = #{leavingId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.blog.entity.LeavingmessageWithBLOBs">
+    insert into tb_leavingmessage (leaving_id, category_type, username, 
+      user_uuid, avatar, likes, 
+      leaving_email, add_time, leaving_content
+      )
+    values (#{leavingId,jdbcType=VARCHAR}, #{categoryType,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{userUuid,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{likes,jdbcType=INTEGER}, 
+      #{leavingEmail,jdbcType=VARCHAR}, #{addTime,jdbcType=LONGVARCHAR}, #{leavingContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.entity.LeavingmessageWithBLOBs">
+    insert into tb_leavingmessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="leavingId != null">
+        leaving_id,
+      </if>
+      <if test="categoryType != null">
+        category_type,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="userUuid != null">
+        user_uuid,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="likes != null">
+        likes,
+      </if>
+      <if test="leavingEmail != null">
+        leaving_email,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="leavingContent != null">
+        leaving_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="leavingId != null">
+        #{leavingId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryType != null">
+        #{categoryType,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null">
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="leavingEmail != null">
+        #{leavingEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="leavingContent != null">
+        #{leavingContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.entity.LeavingmessageWithBLOBs">
+    update tb_leavingmessage
+    <set>
+      <if test="categoryType != null">
+        category_type = #{categoryType,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null">
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="leavingEmail != null">
+        leaving_email = #{leavingEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="leavingContent != null">
+        leaving_content = #{leavingContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where leaving_id = #{leavingId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.entity.LeavingmessageWithBLOBs">
+    update tb_leavingmessage
+    set category_type = #{categoryType,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      leaving_email = #{leavingEmail,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=LONGVARCHAR},
+      leaving_content = #{leavingContent,jdbcType=LONGVARCHAR}
+    where leaving_id = #{leavingId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.entity.Leavingmessage">
+    update tb_leavingmessage
+    set category_type = #{categoryType,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      leaving_email = #{leavingEmail,jdbcType=VARCHAR}
+    where leaving_id = #{leavingId,jdbcType=VARCHAR}
+  </update>
+</mapper>

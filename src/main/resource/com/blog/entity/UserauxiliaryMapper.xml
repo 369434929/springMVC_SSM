@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapping.UserauxiliaryMapper">
+  <resultMap id="BaseResultMap" type="com.blog.entity.Userauxiliary">
+    <id column="auxiliary_id" jdbcType="VARCHAR" property="auxiliaryId" />
+    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="visit_count" jdbcType="INTEGER" property="visitCount" />
+    <result column="user_rank" jdbcType="INTEGER" property="userRank" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="is_validated" jdbcType="INTEGER" property="isValidated" />
+    <result column="credit_line" jdbcType="INTEGER" property="creditLine" />
+    <result column="passwd_question" jdbcType="VARCHAR" property="passwdQuestion" />
+    <result column="passwd_answer" jdbcType="VARCHAR" property="passwdAnswer" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.entity.UserauxiliaryWithBLOBs">
+    <result column="birthday" jdbcType="LONGVARCHAR" property="birthday" />
+    <result column="reg_time" jdbcType="LONGVARCHAR" property="regTime" />
+    <result column="last_time" jdbcType="LONGVARCHAR" property="lastTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    auxiliary_id, user_uuid, sex, visit_count, user_rank, QQ, weixin, mobile_phone, is_validated, 
+    credit_line, passwd_question, passwd_answer
+  </sql>
+  <sql id="Blob_Column_List">
+    birthday, reg_time, last_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_userauxiliary
+    where auxiliary_id = #{auxiliaryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_userauxiliary
+    where auxiliary_id = #{auxiliaryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.blog.entity.UserauxiliaryWithBLOBs">
+    insert into tb_userauxiliary (auxiliary_id, user_uuid, sex, 
+      visit_count, user_rank, QQ, 
+      weixin, mobile_phone, is_validated, 
+      credit_line, passwd_question, passwd_answer, 
+      birthday, reg_time, last_time
+      )
+    values (#{auxiliaryId,jdbcType=VARCHAR}, #{userUuid,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{visitCount,jdbcType=INTEGER}, #{userRank,jdbcType=INTEGER}, #{qq,jdbcType=VARCHAR}, 
+      #{weixin,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{isValidated,jdbcType=INTEGER}, 
+      #{creditLine,jdbcType=INTEGER}, #{passwdQuestion,jdbcType=VARCHAR}, #{passwdAnswer,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=LONGVARCHAR}, #{regTime,jdbcType=LONGVARCHAR}, #{lastTime,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.entity.UserauxiliaryWithBLOBs">
+    insert into tb_userauxiliary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="auxiliaryId != null">
+        auxiliary_id,
+      </if>
+      <if test="userUuid != null">
+        user_uuid,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="visitCount != null">
+        visit_count,
+      </if>
+      <if test="userRank != null">
+        user_rank,
+      </if>
+      <if test="qq != null">
+        QQ,
+      </if>
+      <if test="weixin != null">
+        weixin,
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone,
+      </if>
+      <if test="isValidated != null">
+        is_validated,
+      </if>
+      <if test="creditLine != null">
+        credit_line,
+      </if>
+      <if test="passwdQuestion != null">
+        passwd_question,
+      </if>
+      <if test="passwdAnswer != null">
+        passwd_answer,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="regTime != null">
+        reg_time,
+      </if>
+      <if test="lastTime != null">
+        last_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="auxiliaryId != null">
+        #{auxiliaryId,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="visitCount != null">
+        #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="userRank != null">
+        #{userRank,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidated != null">
+        #{isValidated,jdbcType=INTEGER},
+      </if>
+      <if test="creditLine != null">
+        #{creditLine,jdbcType=INTEGER},
+      </if>
+      <if test="passwdQuestion != null">
+        #{passwdQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="passwdAnswer != null">
+        #{passwdAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.entity.UserauxiliaryWithBLOBs">
+    update tb_userauxiliary
+    <set>
+      <if test="userUuid != null">
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="visitCount != null">
+        visit_count = #{visitCount,jdbcType=INTEGER},
+      </if>
+      <if test="userRank != null">
+        user_rank = #{userRank,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidated != null">
+        is_validated = #{isValidated,jdbcType=INTEGER},
+      </if>
+      <if test="creditLine != null">
+        credit_line = #{creditLine,jdbcType=INTEGER},
+      </if>
+      <if test="passwdQuestion != null">
+        passwd_question = #{passwdQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="passwdAnswer != null">
+        passwd_answer = #{passwdAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="regTime != null">
+        reg_time = #{regTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        last_time = #{lastTime,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where auxiliary_id = #{auxiliaryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.entity.UserauxiliaryWithBLOBs">
+    update tb_userauxiliary
+    set user_uuid = #{userUuid,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      visit_count = #{visitCount,jdbcType=INTEGER},
+      user_rank = #{userRank,jdbcType=INTEGER},
+      QQ = #{qq,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      is_validated = #{isValidated,jdbcType=INTEGER},
+      credit_line = #{creditLine,jdbcType=INTEGER},
+      passwd_question = #{passwdQuestion,jdbcType=VARCHAR},
+      passwd_answer = #{passwdAnswer,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=LONGVARCHAR},
+      reg_time = #{regTime,jdbcType=LONGVARCHAR},
+      last_time = #{lastTime,jdbcType=LONGVARCHAR}
+    where auxiliary_id = #{auxiliaryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.entity.Userauxiliary">
+    update tb_userauxiliary
+    set user_uuid = #{userUuid,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      visit_count = #{visitCount,jdbcType=INTEGER},
+      user_rank = #{userRank,jdbcType=INTEGER},
+      QQ = #{qq,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      is_validated = #{isValidated,jdbcType=INTEGER},
+      credit_line = #{creditLine,jdbcType=INTEGER},
+      passwd_question = #{passwdQuestion,jdbcType=VARCHAR},
+      passwd_answer = #{passwdAnswer,jdbcType=VARCHAR}
+    where auxiliary_id = #{auxiliaryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapping.Tag_tagsMapper">
+  <resultMap id="BaseResultMap" type="com.blog.entity.Tag_tags">
+    <id column="tag_tags_id" jdbcType="VARCHAR" property="tagTagsId" />
+    <result column="artucle_type" jdbcType="VARCHAR" property="artucleType" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tag_tags_id, artucle_type, tags
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_tag_tags
+    where tag_tags_id = #{tagTagsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_tag_tags
+    where tag_tags_id = #{tagTagsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.blog.entity.Tag_tags">
+    insert into tb_tag_tags (tag_tags_id, artucle_type, tags
+      )
+    values (#{tagTagsId,jdbcType=VARCHAR}, #{artucleType,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.entity.Tag_tags">
+    insert into tb_tag_tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tagTagsId != null">
+        tag_tags_id,
+      </if>
+      <if test="artucleType != null">
+        artucle_type,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tagTagsId != null">
+        #{tagTagsId,jdbcType=VARCHAR},
+      </if>
+      <if test="artucleType != null">
+        #{artucleType,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.entity.Tag_tags">
+    update tb_tag_tags
+    <set>
+      <if test="artucleType != null">
+        artucle_type = #{artucleType,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tag_tags_id = #{tagTagsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.entity.Tag_tags">
+    update tb_tag_tags
+    set artucle_type = #{artucleType,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR}
+    where tag_tags_id = #{tagTagsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

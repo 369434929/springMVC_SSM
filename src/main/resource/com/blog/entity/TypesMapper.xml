@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapping.TypesMapper">
+  <resultMap id="BaseResultMap" type="com.blog.entity.Types">
+    <id column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type_explain" jdbcType="VARCHAR" property="typeExplain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    type_id, type, type_explain
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_types
+    where type_id = #{typeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_types
+    where type_id = #{typeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.blog.entity.Types">
+    insert into tb_types (type_id, type, type_explain
+      )
+    values (#{typeId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{typeExplain,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.entity.Types">
+    insert into tb_types
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="typeExplain != null">
+        type_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeExplain != null">
+        #{typeExplain,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.entity.Types">
+    update tb_types
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeExplain != null">
+        type_explain = #{typeExplain,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.entity.Types">
+    update tb_types
+    set type = #{type,jdbcType=INTEGER},
+      type_explain = #{typeExplain,jdbcType=VARCHAR}
+    where type_id = #{typeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapping.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.blog.entity.Article">
+    <result column="article_id" jdbcType="VARCHAR" property="articleId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="tag" jdbcType="INTEGER" property="tag" />
+    <result column="is_recommend" jdbcType="BIT" property="isRecommend" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.entity.ArticleWithBLOBs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="publish_time" jdbcType="LONGVARCHAR" property="publishTime" />
+    <result column="updata_time" jdbcType="LONGVARCHAR" property="updataTime" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    content, publish_time, updata_time
+  </sql>
+  <insert id="insert" parameterType="com.blog.entity.ArticleWithBLOBs">
+    insert into tb_article (article_id, title, category, 
+      tag, is_recommend, content, 
+      publish_time, updata_time)
+    values (#{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
+      #{tag,jdbcType=INTEGER}, #{isRecommend,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}, 
+      #{publishTime,jdbcType=LONGVARCHAR}, #{updataTime,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.entity.ArticleWithBLOBs">
+    insert into tb_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="isRecommend != null">
+        is_recommend,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="updataTime != null">
+        updata_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updataTime != null">
+        #{updataTime,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
