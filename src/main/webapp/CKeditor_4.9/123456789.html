@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Learning CKEditor</title>
+  
+</head>
+<body>
+  <textarea name="editor" id="editor" cols="30" rows="10"></textarea>
+  <script type="text/javascript" src="ckeditor.js"></script>
+  <script type="text/javascript">
+    CKEDITOR.replace('editor');
+  </script>
+
+<script type="text/javascript" src="ckeditor.js"></script>  
+</head>  
+<button onclick="copyText()">Copy Text</button>
+ 
+<script type="text/javascript">   
+ var editor = CKEDITOR.replace('editor');   
+function copyText(){  
+        if(CKEDITOR.instances.editor.getData()==""){  
+        alert("内容不能为空！");  
+        return false;  
+        }else {  
+        alert (CKEDITOR.instances.editor.getData());  
+        }  
+    }  
+ </script>  
+</body>
+</html>
