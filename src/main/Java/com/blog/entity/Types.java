@@ -3,7 +3,7 @@ package com.blog.entity;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
-@Alias("Types")
+@Alias("TypesService")
 public class Types implements Serializable {
     private String typeId;
 
