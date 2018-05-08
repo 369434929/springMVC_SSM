@@ -15,6 +15,8 @@ public interface UserService {
 
     public void query(String id);
 
+    public User login(String user,String pas);
+
     public List<User> getUser();
 
 }

@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User login(String user, String pas) {
+        return userMapper.login(user,pas);
+    }
+
+    @Override
     public List<User> getUser() {
 
         return null;
