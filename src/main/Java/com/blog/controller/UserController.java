@@ -36,21 +36,39 @@ public class UserController {
     }
 
     @RequestMapping("/Login")
-
-    public String doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+    public String LogingdoGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         request.setCharacterEncoding("UTF-8");
         String usernaem = request.getParameter("usernaem");
         String password = request.getParameter("password");
         User user = userService.login(usernaem, password);
         if (user != null){
             request.getSession().setAttribute("user",user);
-            System.out.println("23222222222222222222222222222222222222222222222222");
+                    return "admin/CKeditor";
+        }else {     return "error";        }
+    }
+    protected void LogindoPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LogingdoGet(request, response);
+    }
+    //页面注册页面跳转
+    @RequestMapping("/RegisterPag")
+    public String GoToRegister(){
+        return "RegisterUser";
+    }
+    //注册页面的激活方法调用
+    @RequestMapping("/Register")
+    public String RegisterdoGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+        request.setCharacterEncoding("UTF-8");
+        String useremail = request.getParameter("Useremail");
+        String password = request.getParameter("password");
+        //注释调用的邮件
+        User user = userService.login(useremail, password);
+        if (user != null){
+            request.getSession().setAttribute("user",user);
             return "admin/CKeditor";
-        }else {
-            return "error";
-        }
+        }else {     return "error";        }
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+    protected void RegisterdoPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RegisterdoGet(request, response);
     }
+
 }

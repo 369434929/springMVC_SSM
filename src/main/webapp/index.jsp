@@ -9,15 +9,11 @@
 <html>
 <head>
     <title>Title</title>
-
     <link rel='stylesheet' id='bootstrap-css-css'  href='CSS/login.css' type='text/css' media='all' />
-
-
 </head>
 <body>
 
 <div class='login'>
-
     <!--<img class="MyLogo" src="loginSpecial/images/logo01.png" alt="   LOGO">-->
     <div class='login_title'>
         <span>管理员登录</span>
@@ -37,7 +33,7 @@
             <div class='icon'>
                 <img alt="" src='loginSpecial/img/lock_icon_copy.png'>
             </div>
-            <input name="password" class="passwordNumder" placeholder='密码' maxlength="16" type='text' autocomplete="off" value="2">
+            <input name="password" placeholder='密码' maxlength="16" type='text' autocomplete="off" value="2">
             <div class='validation'>
                 <img alt="" src='loginSpecial/img/tick.png'>
             </div>
@@ -54,6 +50,9 @@
         <div class='login_fields__submit'>
             <input type='submit'  value='登录'>
         </div>
+         <div class='disclaimer'>
+              <p><a href="user/RegisterPag.do">还没有账号注册?点我注册.</a> </p>
+          </div>
         </form>
     </div>
 </div>
@@ -88,7 +87,6 @@
         }
      }
     //生成验证码
-
     function createCode(e) {
         var code='';
         var codeLength = 4;
@@ -99,7 +97,6 @@
         }
         showCheck(code);
     }
-
     function showCheck(a) {
         var c = document.getElementById("myCanvas");
         document.getElementById("myCanvas").title = a;
