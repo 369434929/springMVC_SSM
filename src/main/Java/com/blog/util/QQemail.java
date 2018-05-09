@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 
 public class QQemail {
-    private String username = Configure.eamilUserName;
-    private String password = Configure.eamilLicenseKey;
+    private String username =null;
+    private String password = null;
     private Authenticator auth = null;
     private MimeMessage mimeMessage =null;
     private Properties pros = null;
@@ -44,6 +44,10 @@ public class QQemail {
             pros.setProperty(entry.getKey(), entry.getValue());
         }
     }
+    public QQemail(String username,String password){
+        this.username = username;
+        this.password = password;
+    }
     /**
      * 验证账号密码
      * 发送邮件必须的步骤
@@ -54,6 +58,8 @@ public class QQemail {
     {
         public PasswordAuthentication getPasswordAuthentication()
         {
+            System.out.println(username);
+            System.out.println(password);
             return new PasswordAuthentication(username, password);
         }
     }
@@ -134,7 +140,7 @@ public class QQemail {
      * @throws AddressException
      */
     @SuppressWarnings("static-access")
-    public String setRecipients(StringBuffer sb) throws AddressException, MessagingException{
+    public String setRecipients(String sb) throws AddressException, MessagingException{
         if(sb==null||"".equals(sb)){
             return "字符串数据为空!";
         }

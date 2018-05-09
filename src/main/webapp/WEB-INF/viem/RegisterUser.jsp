@@ -10,20 +10,26 @@
 <head>
     <title>注册页面</title>
     <link rel='stylesheet' id='bootstrap-css-css'  href='../../../CSS/login.css' type='text/css' media='all' />
+    <style type="text/css">
+        body .login_fields{
+            padding: 10px 0px;
+        }
+    </style>
 </head>
+
 <body>
 <div class='login'>
     <!--<img class="MyLogo" src="loginSpecial/images/logo01.png" alt="   LOGO">-->
-    <div class='login_title'>
-        <span>管理员登录</span>
+    <div class='login_title' style="height: 30px">
+        <span>用户注册</span>
     </div>
-    <div class='login_fields'>
-        <form action="user/Register.do" onsubmit="return validate_form(this)" method="post">
+    <div class='login_fields' >
+        <form action="Register.do" onsubmit="return validate_form(this)" method="post">
             <div class='login_fields__user'>
                 <div class='icon'>
                     <img alt="" src='loginSpecial/img/user_icon_copy.png'>
                 </div>
-                <input name="Useremail" placeholder='邮箱' maxlength="16" class="username" type='email' autocomplete="off" value="2"/>
+                <input name="Useremail" placeholder='注册邮箱' class="username" maxlength="16" class="username" type='text' autocomplete="off" value="" style="padding-left: 0px;"/>
                 <div class='validation'>
                     <img alt="" src='loginSpecial/img/tick.png'>
                 </div>
@@ -32,7 +38,7 @@
                 <div class='icon'>
                     <img alt="" src='loginSpecial/img/lock_icon_copy.png'>
                 </div>
-                <input name="password" class="passwordNumder" placeholder='密码' maxlength="16" type='password' autocomplete="off" value="2">
+                <input name="password" class="passwordNumder" placeholder='密码' maxlength="16" type='password' autocomplete="off" value=""  style="padding-left: 0px;">
                 <div class='validation'>
                     <img alt="" src='loginSpecial/img/tick.png'>
                 </div>
@@ -41,7 +47,7 @@
                 <div class='icon'>
                     <img alt="" src='loginSpecial/img/lock_icon_copy.png'>
                 </div>
-                <input name="verifyPassword" class="passwordNumder" placeholder='重复密码' maxlength="16" type='password' autocomplete="off" value="2">
+                <input name="verifyPassword" class="passwordNumder" placeholder='重复密码' maxlength="16" type='password' autocomplete="off" value=""  style="padding-left: 0px;">
                 <div class='validation'>
                     <img alt="" src='loginSpecial/img/tick.png'>
                 </div>
@@ -50,7 +56,7 @@
                 <div class='icon'>
                     <img alt="" src='loginSpecial/img/key.png'>
                 </div>
-                <input name="codeStr" placeholder='验证码' maxlength="4"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off">
+                <input name="codeStr" placeholder='验证码' maxlength="4"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off" style="padding-left: 0px;">
                 <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
                     <canvas class="J_codeimg" id="myCanvas" onclick="createCode('')" data-yourvalue="">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
                 </div>
@@ -62,6 +68,7 @@
     </div>
 </div>
 </body>
+
 <script type="text/javascript">
     window.onload=function(){
         createCode("")
@@ -78,7 +85,7 @@
             {password.focus();return false}
             if (validate_required(codeStr,"code must be filled out!")==false)
             {codeStr.focus();return false}
-            if(password.value.toUpperCase() != document.getElementById("myCanvas").title.toUpperCase()){
+            if(codeStr.value.toUpperCase() != document.getElementById("myCanvas").title.toUpperCase()){
                 alert("Please enter the correct");
                 codeStr.focus();return false
             }
@@ -86,6 +93,15 @@
                 alert("Please enter the passwrod");
                 codeStr.focus();return false
             }
+        }
+    }
+    function validate_required(field,alerttxt)
+    {
+        with (field)
+        {
+            if (value==null||value=="")
+            {alert(alerttxt);return false}
+            else {return true}
         }
     }
     //生成验证码
