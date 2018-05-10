@@ -56,6 +56,8 @@
           <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.1.0" />
           <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.2.0" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.4" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
