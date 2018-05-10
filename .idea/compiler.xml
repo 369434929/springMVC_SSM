@@ -9,5 +9,8 @@
         <module name="springMVC_SSM" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springMVC_SSM" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

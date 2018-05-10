@@ -1,5 +1,8 @@
 package com.blog.util;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.util.DigestUtils;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -8,29 +11,30 @@ import javax.mail.internet.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 public class QQemail {
-    private String username =null;
-    private String password = null;
+    private String username =Configure.eamilUserName;
+    private String password =Configure.eamilLicenseKey;
     private Authenticator auth = null;
     private MimeMessage mimeMessage =null;
     private Properties pros = null;
     private Multipart multipart = null;
     private BodyPart bodypart= null;
-
     /**
-     * 初始化MimeMessage对象
-     * 发送邮件必须的步骤:3
+     * 初始化账号密码并验证
+     * 创建MimeMessage对象
+     * 发送邮件必须的步骤:1
      */
-    public void initMessage(){
-        this.auth = new Email_Autherticator();
-        Session session = Session.getDefaultInstance(pros,auth);
-        session.setDebug(true); //设置获取 debug 信息
-        mimeMessage = new MimeMessage(session);
+    public QQemail(){
+        Map<String,String> map= new HashMap<String,String>();
+        map.put("mail.smtp.host", "smtp.qq.com");
+        map.put("mail.smtp.auth", "true");
+        map.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        map.put("mail.smtp.port", "465");
+        map.put("mail.smtp.socketFactory.port", "465");
+        setPros(map);
+        initMessage();
     }
     /**
      * 设置email系统参数
@@ -44,10 +48,18 @@ public class QQemail {
             pros.setProperty(entry.getKey(), entry.getValue());
         }
     }
-    public QQemail(String username,String password){
-        this.username = username;
-        this.password = password;
+    /**
+     * 初始化MimeMessage对象
+     * 发送邮件必须的步骤:3
+     */
+    public void initMessage(){
+        this.auth = new Email_Autherticator();
+        Session session = Session.getDefaultInstance(pros,auth);
+        session.setDebug(true); //设置获取 debug 信息
+        mimeMessage = new MimeMessage(session);
     }
+
+
     /**
      * 验证账号密码
      * 发送邮件必须的步骤
@@ -67,13 +79,14 @@ public class QQemail {
      * 设置发送邮件的基本参数(去除繁琐的邮件设置)
      * @param sub 设置邮件主题
      * @param text 设置邮件文本内容
+     * @param type 设置邮件的编码类型等
      * @param rec 设置邮件接收人
      * @throws MessagingException
      * @throws UnsupportedEncodingException
      */
-    public void setDefaultMessagePros(String sub,String text,String rec) throws MessagingException, UnsupportedEncodingException{
+    public void setDefaultMessagePros(String sub,String text,String type,String rec) throws MessagingException, UnsupportedEncodingException{
         mimeMessage.setSubject(sub);
-        mimeMessage.setText(text);
+        mimeMessage.setContent(text,type);
         mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(rec));
         mimeMessage.setSentDate(new Date());
         mimeMessage.setFrom(new InternetAddress(username,username));
@@ -163,6 +176,7 @@ public class QQemail {
      * @throws MessagingException
      */
     public String sendMessage() throws MessagingException{
+        System.out.println(mimeMessage);
         Transport.send(mimeMessage);
         return "success";
     }
@@ -229,4 +243,34 @@ public class QQemail {
         bodypart.setFileName(MimeUtility.encodeText(file.getName()));
         return bodypart;
     }
-}
+@Test
+    public void Tetse() throws MessagingException, UnsupportedEncodingException {
+    String useremail ="cloudoer@foxmail.com";
+    String userpassword = "123";
+    String struuid= UUID.randomUUID().toString().replaceAll("-", "");
+    StringBuffer strBuffer=new StringBuffer();
+    strBuffer.append("<a href=\\\"http://localhost:8080/mailtest/emailcheck.action?op=activate&id=\"");
+    strBuffer.append(struuid);
+    strBuffer.append("&password=");
+    strBuffer.append(userpassword);
+    strBuffer.append("&useremail=");
+    strBuffer.append(useremail);
+    strBuffer.append("\">http://localhost:8080/mailtest/emailcheck.action?op=activate&id=");
+    strBuffer.append(struuid);
+    strBuffer.append("&password=");
+    strBuffer.append(password);
+    strBuffer.append("&useremail=");
+    strBuffer.append(useremail);
+    strBuffer.append("</a>"+"<br/>如果以上链接无法点击，请把上面网页地址复制到浏览器地址栏中打开<br/><br/><br/>Chen，专注兴趣，分享创作<br/>"+new Date()+ "</div></div>" );
+    //调用邮箱的逻辑
+    QQemail mail = new QQemail();
+    mail.setDefaultMessagePros("邮箱激活",strBuffer.toString(),"text/html; charset=UTF-8",useremail);
+    System.out.println(mail.sendMessage());
+    }
+    @Test
+    public void md5Test(){
+        String str = "123";
+        System.out.println(org.apache.commons.codec.digest.DigestUtils.md5Hex(str));
+    }
+    }
+

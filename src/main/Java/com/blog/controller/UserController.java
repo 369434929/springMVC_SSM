@@ -33,7 +33,6 @@ public class UserController {
     public User getById(String id){
         return userService.getById(id);
     }
-
 //返回页面返回的是页面名字！
     @RequestMapping("/indexUI")
     public String indexUI(){
@@ -64,7 +63,7 @@ public class UserController {
     public String RegisterdoGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, MessagingException {
         request.setCharacterEncoding("UTF-8");
         String useremail = request.getParameter("Useremail");
-        String password = request.getParameter("password");
+        String password = org.apache.commons.codec.digest.DigestUtils.md5Hex(request.getParameter("password"));
         String struuid=UUID.randomUUID().toString().replaceAll("-", "");
         StringBuffer strBuffer=new StringBuffer();
         strBuffer.append("<a href=\\\"http://localhost:8080/mailtest/emailcheck.action?op=activate&id=\"");
@@ -81,25 +80,10 @@ public class UserController {
         strBuffer.append(useremail);
         strBuffer.append("</a>"+"<br/>如果以上链接无法点击，请把上面网页地址复制到浏览器地址栏中打开<br/><br/><br/>LOFTER，专注兴趣，分享创作<br/>"+new Date()+ "</div></div>" );
         //调用邮箱的逻辑
-        QQemail mail = new QQemail("1358129947@qq.com","rzzfoeiwzeqvjdcc");
-        Map<String,String> map= new HashMap<String,String>();
-        map.put("mail.smtp.host", "smtp.qq.com");
-        map.put("mail.smtp.auth", "true");
-        map.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        map.put("mail.smtp.port", "465");
-        map.put("mail.smtp.socketFactory.port", "465");
-        mail.setPros(map);
-        mail.initMessage();
-        mail.setRecipients(useremail);
-        String str=strBuffer.toString();
-        mail.setSubject(strBuffer.toString());
-        mail.setDate(new Date());
-        mail.setFrom("MY");
-
-        System.out.println(mail.sendMessage());
-        //注释调用的邮件
-        System.out.println("123");
-        return "  ";
+        QQemail mail = new QQemail();
+        mail.setDefaultMessagePros("邮箱激活",strBuffer.toString(),"text/html; charset=UTF-8",useremail);
+        mail.setFrom("Chen个人博客账号激活");   //设置发送人的标签
+        return mail.sendMessage();              //返回邮件发送的的状态
     }
     protected void RegisterdoPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, MessagingException {
         RegisterdoGet(request, response);
