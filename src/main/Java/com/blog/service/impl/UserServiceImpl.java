@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
      * @return 不返回
      * @throws Exception
      */
-    public void add(User user){
+    public void insert(User user){
         userMapper.insertSelective(user);
     }
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         user.setUseremail("22");
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserService userService = (UserService) context.getBean("userService");
-        userService.add(user);
+        userService.insert(user);
     }
     @Test
         public void deletsTest(){

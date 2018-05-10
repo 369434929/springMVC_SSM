@@ -245,20 +245,20 @@ public class QQemail {
     }
 @Test
     public void Tetse() throws MessagingException, UnsupportedEncodingException {
-    String useremail ="cloudoer@foxmail.com";
+    String useremail ="tao.chen@ckhy.com";
     String userpassword = "123";
     String struuid= UUID.randomUUID().toString().replaceAll("-", "");
     StringBuffer strBuffer=new StringBuffer();
-    strBuffer.append("<a href=\\\"http://localhost:8080/mailtest/emailcheck.action?op=activate&id=\"");
+    strBuffer.append("<a href=http://localhost:8080/mailtest/emailcheck.action?op=activate&id=");
     strBuffer.append(struuid);
     strBuffer.append("&password=");
     strBuffer.append(userpassword);
     strBuffer.append("&useremail=");
     strBuffer.append(useremail);
-    strBuffer.append("\">http://localhost:8080/mailtest/emailcheck.action?op=activate&id=");
+    strBuffer.append(">http://localhost:8080/mailtest/emailcheck.action?op=activate&id=");
     strBuffer.append(struuid);
     strBuffer.append("&password=");
-    strBuffer.append(password);
+    strBuffer.append(userpassword);
     strBuffer.append("&useremail=");
     strBuffer.append(useremail);
     strBuffer.append("</a>"+"<br/>如果以上链接无法点击，请把上面网页地址复制到浏览器地址栏中打开<br/><br/><br/>Chen，专注兴趣，分享创作<br/>"+new Date()+ "</div></div>" );

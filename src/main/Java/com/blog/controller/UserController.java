@@ -25,7 +25,7 @@ public class UserController {
 //添加方法
     @RequestMapping("/add")
     public void add(User user){
-        userService.add(user);
+        userService.insert(user);
     }
 //ajax 异步返回
     @RequestMapping("/getById")
@@ -66,13 +66,13 @@ public class UserController {
         String password = org.apache.commons.codec.digest.DigestUtils.md5Hex(request.getParameter("password"));
         String struuid=UUID.randomUUID().toString().replaceAll("-", "");
         StringBuffer strBuffer=new StringBuffer();
-        strBuffer.append("<a href=\\\"http://localhost:8080/mailtest/emailcheck.action?op=activate&id=\"");
+        strBuffer.append("<a href=http://localhost:8080/user/Adduser.do?op=activate&id=");
         strBuffer.append(struuid);
         strBuffer.append("&password=");
         strBuffer.append(password);
         strBuffer.append("&useremail=");
         strBuffer.append(useremail);
-        strBuffer.append("\">http://localhost:8080/mailtest/emailcheck.action?op=activate&id=");
+        strBuffer.append(">http://localhost:8080/user/Adduser.do?op=activate&id=");
         strBuffer.append(struuid);
         strBuffer.append("&password=");
         strBuffer.append(password);
@@ -87,6 +87,20 @@ public class UserController {
     }
     protected void RegisterdoPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, MessagingException {
         RegisterdoGet(request, response);
+    }
+
+    @RequestMapping("/Adduser")
+    public String Adduser(HttpServletRequest request, HttpServletResponse response){
+        User user = new User();
+        user.setUserUuid(request.getParameter("id"));
+        user.setUseremail(request.getParameter("useremail"));
+        user.setPassword(request.getParameter("password"));
+        user.setAvatar("http://imgtu.5011.net/uploads/content/20170301/1431161488352420.jpg");//头像
+        user.setSingnature("这家伙很懒，没有留下签名!");
+        user.setUserip(request.getRemoteAddr());
+        user.setReportnumber(0);
+        userService.insert(user);
+        return "homepage";
     }
 
 }

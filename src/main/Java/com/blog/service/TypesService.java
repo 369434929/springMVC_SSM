@@ -1,13 +1,13 @@
 package com.blog.service;
 
+import com.blog.entity.Types;
 import com.blog.entity.User;
 
 public interface TypesService {
-    User getById(String id);
 
-    public void add(User user);
+    public void insert(Types types);
 
-    public void update(User user);
+    public void update(Types types);
 
     public void delete(String id);
 
